@@ -1,0 +1,9 @@
+.geo {
+    width: 55%;
+}
+
+.yandex-map {
+    width: 45%;
+    background-color: #2d3748;
+    color: white;
+}
