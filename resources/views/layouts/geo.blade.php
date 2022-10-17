@@ -9,63 +9,48 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Bootstrap v4-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <!-- Bootstrap v4.6.1-->
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--DataTables-->
     <link href="/lib/datatables/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/lib/geo/geo.css" rel="stylesheet">
+    <!--Yandex map-->
+    <script
+        src="https://api-maps.yandex.ru/2.1/?apikey=4606648f-7e1f-4715-9daa-96a4802d44b6&lang=ru_RU&"
+        type="text/javascript"></script>
+    <script src="/lib/geo/load_script.js" type="module"></script>
 </head>
 
 <body>
 
 <style>
-    .hidden {
-        display: none;
+    .b-shadow {
+        box-shadow: 0px 10px 20px -7px rgba(32, 56, 117, 0.35);
+    }
+
+    .rounded-20 {
+        border-radius: 20px;
     }
 
     body {
         background-color: whitesmoke;
     }
 
-    #map {
-        width: 50%;
-        height: 700px;
-        background-color: lightgrey;
-    }
-
-    #geo {
-        width: 50%;
-    }
-
-    .b-shadow {
-        box-shadow: 0px 10px 20px -7px rgba(32, 56, 117, 0.35);
-    }
-
-    .fs-14 {
-        font-size: 14px;
-    }
-
-    .container {
-        /*max-width: 1300px;*/
-    }
-
-    .geo {
-        /*width: 45%;*/
-    }
-
-    .yandex-map {
+    .field-group {
+        width: 85%;
     }
 </style>
 
 <div class="d-flex justify-content-end px-5 py-4 d-md-bloc">
     <div class="dropdown b-shadow">
-        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             {{ Auth::user()->name }}
         </button>
-        <ul class="dropdown-menu shadow">
+        <ul class="dropdown-menu shadow py-1">
             <li>
-                <form class="dropdown-item border=0" method="POST" action="{{ route('logout') }}">
+                <form class="dropdown-item btn-sm border=0" method="POST" action="{{ route('logout') }}">
                     @csrf
                     <a href="route('logout')" onclick="event.preventDefault();
                     this.closest('form').submit();">
@@ -79,8 +64,8 @@
 
 <div class="container p-0">
 
-    <div class="d-flex">
-        <div id="geo" class="geo p-0">
+    <div class="geo-wrapper d-flex">
+        <div id="geo" class="geo">
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="header">
@@ -92,24 +77,17 @@
                 {{ $slot }}
             </div>
         </div>
-        <div id="map" class="yandex-map p-0 ml-4 border border-light rounded-lg shadow overflow-auto">
-            <script type="text/javascript" charset="utf-8" async
-                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2f02ea752f83a997f0b7f8f968c840a9832c4848193cce173475d6c43c6b1bf2&amp;width=560&amp;height=680&amp;lang=ru_RU&amp;scroll=true"></script>
-        </div>
+        <div id="map" class="yandex-map p-0 border border-light rounded-20 shadow overflow-auto"></div>
     </div>
 
 </div>
 
 <!-- jQuery и Bootstrap (включает Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
+<script src="/lib/bootstrap/js/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>></script>
 <!--DataTables-->
 <script src="/lib/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-<!-- Сustom Scripts -->
+<!-- Сustom and DataTables Options scripts -->
 <script type="text/javascript">
     $("#geo_table").DataTable({
         language: {
@@ -321,13 +299,16 @@
             "searchPlaceholder": "Что ищете?"
         }
     });
-    <!--Close alert success-->
-    const messageErrorEl = document.querySelector('#alert-success')
-    setTimeout(function () {
-        messageErrorEl.remove()
-    }, 6000)
-    <!--Yandex card-->
+    <!--Auto close alert success-->
+    const alertSuccessEl = document.querySelector('#alert-success')
 
+    if (alertSuccessEl) {
+        console.log(alertSuccessEl.children);
+        setTimeout(function () {
+            alertSuccessEl.remove()
+        }, 6000)
+    }
 </script>
+
 </body>
 </html>

@@ -20,7 +20,7 @@ class GeoController extends Controller
      */
     public function index()
     {
-        $geos = Geo::all();
+        $geos = Geo::all()->where('user_id', '===', auth()->user()->id);
 
         return view('/geos', ['geos' => $geos]);
     }
@@ -44,7 +44,7 @@ class GeoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:geos',
             'longitude' => 'required|numeric|regex:/^\d{2}.\d{6}$/',
             'Latitude' => 'required|numeric|regex:/^\d{2}.\d{6}$/',
         ]);
@@ -64,9 +64,9 @@ class GeoController extends Controller
      * @param Geo $geo
      * @return Response
      */
-    public function show(Geo $geo)
+    public function show()
     {
-        //
+        return view('show');
     }
 
     /**

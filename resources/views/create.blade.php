@@ -1,14 +1,14 @@
 <x-geo-layout>
 
     <x-slot name="header">
-        <h2>Добавить новую запись</h2>
+        <h2>Добавить запись</h2>
     </x-slot>
 
-    <div class="geo-card mt-5" id="geo-create">
+    <div class="geo-card mt-5" id="geo-map" data-activeId="{{ auth()->user()->id }}" data-activePage="create">
         <div class="card-content">
             <form name="createForm" class="card-form" method="POST" action="{{ route('geos.store') }}">
                 @csrf
-                <div class="form-group mb-0">
+                <div class="form-group field-group mb-0">
                     <label class="p-2 mb-0" for="name">Название</label>
                     <div>
                         <input type="text" class="form-control" id="name" name="name"
@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mb-0">
+                <div class="form-group field-group mb-0">
                     <label class="p-2 mb-0" for="longitude">Долгота</label>
                     <div>
                         <input type="text" class="form-control" id="longitude" name="longitude"
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mb-0">
+                <div class="form-group field-group mb-0">
                     <label class="p-2 mb-0" for="Latitude">Широта</label>
                     <div>
                         <input type="text" class="form-control" id="Latitude" name="Latitude"

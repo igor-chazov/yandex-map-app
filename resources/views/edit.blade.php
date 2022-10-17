@@ -4,12 +4,12 @@
         <h2>Редактировать запись</h2>
     </x-slot>
 
-    <div class="geo-card mt-5" id="geo-edit">
+    <div class="geo-card mt-5" id="geo-map" data-activeId="{{ auth()->user()->id }}" data-itemId="{{ $geo->id }}" data-activePage="edit">
         <div class="card-content">
             <form name="editForm" class="card-form" method="POST" action="{{ route('geos.update', $geo->id) }}">
                 @csrf
                 @method('PATCH')
-                <div class="form-group mb-0">
+                <div class="form-group field-group mb-0">
                     <label class="p-2 mb-0" for="name">Название</label>
                     <div>
                         <input type="text" class="form-control" id="name" name="name"
@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mb-0">
+                <div class="form-group field-group mb-0">
                     <label class="p-2 mb-0" for="longitude">Долгота</label>
                     <div>
                         <input type="text" class="form-control" id="longitude" name="longitude"
@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mb-0">
+                <div class="form-group field-group mb-0">
                     <label class="p-2 mb-0" for="Latitude">Широта</label>
                     <div>
                         <input type="text" class="form-control" id="Latitude" name="Latitude"

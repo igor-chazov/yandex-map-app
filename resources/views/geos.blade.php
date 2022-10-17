@@ -20,12 +20,11 @@
             <a href="/geos/create" class="btn btn-success py-2 b-shadow" id="create-new-geo">Добавить геолокацию</a>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-12 fs-14">
-            <table id="geo_table" class="table table-striped table-bordered table-responsive p-0 fs-14">
+    <div class="row mt-3" data-activeId="{{ auth()->user()->id }}" data-activePage="geos">
+        <div class="table-responsive col-12">
+            <table id="geo_table" class="table table-striped table-bordered p-0">
                 <thead>
                 <tr class="text-center">
-{{--                    <th class="hidden">ID</th>--}}
                     <th>Название</th>
                     <th>Долгота</th>
                     <th>Широта</th>
@@ -34,25 +33,22 @@
                 </thead>
                 <tbody>
                 @foreach($geos as $geo)
-                    @if(auth()->user()->id === $geo->user_id)
-                        <tr class="table" id="row_{{$geo->id}}">
-{{--                            <td class="align-middle hidden">{{ $geo->id }}</td>--}}
-                            <td class="align-middle">{{ $geo->name }}</td>
-                            <td class="align-middle">{{ $geo->longitude }}</td>
-                            <td class="align-middle">{{ $geo->Latitude }}</td>
-                            <td class="d-flex justify-content-end">
-                                <a href="{{ route('geos.edit', $geo->id)}}"
-                                   class="btn btn-info py-2 me-6 b-shadow fs-14">Редактировать</a>
-                                <form method="POST" action="{{ route('geos.destroy', $geo->id)}}" class="ms-3">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger py-2 px-3 ml-2 b-shadow fs-14" type="submit"
-                                            name="destroy">Удалить
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endif
+                    <tr class="table" data-objectId="{{ $geo->id }}">
+                        <td class="align-middle">{{ $geo->name }}</td>
+                        <td class="align-middle">{{ $geo->longitude }}</td>
+                        <td class="align-middle">{{ $geo->Latitude }}</td>
+                        <td class="d-flex justify-content-end">
+                            <a href="{{ route('geos.edit', $geo->id) }}"
+                               class="btn btn-info geo-btn py-2 me-6 b-shadow">Изменить</a>
+                            <form method="POST" action="{{ route('geos.destroy', $geo->id) }}" class="ms-3">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger geo-btn py-2 px-3 ml-2 b-shadow" type="submit"
+                                        name="destroy">Удалить
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>

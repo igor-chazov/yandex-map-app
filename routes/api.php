@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Resources\GeoResource;
+use App\Http\Resources\GeosCollection;
+use App\Models\Geo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/geos/{geo}', function(Geo $geo) {
+    return new GeoResource($geo);
+});
+
+Route::get('/geos', function () {
+    return new GeosCollection(Geo::all());
 });

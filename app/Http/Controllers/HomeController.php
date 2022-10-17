@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function redirectUser()
     {
         if (Auth::check()) {
-            return redirect(url('geos'));;
+            return redirect(url('/geos/show'));;
         } else {
             return view('welcome');
         }
