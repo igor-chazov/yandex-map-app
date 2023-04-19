@@ -35,36 +35,28 @@
     body {
         background-color: whitesmoke;
     }
-
-    .field-group {
-        width: 85%;
-    }
 </style>
 
-<div class="d-flex justify-content-end px-5 py-4 d-md-bloc">
-    <div class="dropdown b-shadow">
-        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-            {{ Auth::user()->name }}
-        </button>
-        <ul class="dropdown-menu shadow py-1">
-            <li>
-                <form class="dropdown-item btn-sm border=0" method="POST" action="{{ route('logout') }}">
+<div class="container p-2">
+
+    <div class="d-flex justify-content-end border-bottom pt-4 pb-4">
+        <div class="btn-group b-shadow">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-expanded="false">
+                {{ Auth::user()->name }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right b-shadow">
+                <form class="dropdown text-center" method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <a href="route('logout')" onclick="event.preventDefault();
-                    this.closest('form').submit();">
+                    <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                         {{ __('Выйти') }}
                     </a>
                 </form>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="container p-0">
-
-    <div class="geo-wrapper d-flex">
+    <div class="geo-wrapper d-flex mt-5">
         <div id="geo" class="geo">
             <!-- Page Heading -->
             @if (isset($header))
